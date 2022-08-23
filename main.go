@@ -1,6 +1,7 @@
 package main
 
 import (
+	"golangvueapp/auth"
 	"golangvueapp/handler"
 	"golangvueapp/user"
 	"log"
@@ -21,9 +22,9 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
-	userService.SaveAvatar(5, "images/1-profile.png")
+	authService := auth.NewService()
 
-	userHandler := handler.NewUserHandler(userService)
+	userHandler := handler.NewUserHandler(userService, authService)
 
 	router := gin.Default()
 	api := router.Group("/api/v1")
